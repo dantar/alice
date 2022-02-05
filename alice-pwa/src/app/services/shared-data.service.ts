@@ -226,6 +226,13 @@ export class SharedDataService {
     return true;
   }
 
+  qrCodeOn(code: string, on: string): boolean  {
+    this.pv.qr(this.scenario, this.play, `${code}+${on}`);
+    this.updateGui();
+    this.savePlay();
+    return true;
+  }
+
   getOptions(): GameOption {
     return this.pv.getOptions(this.scenario, this.play);
   }

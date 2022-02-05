@@ -22,6 +22,8 @@ export class QrCodePopupComponent implements OnInit, OnDestroy {
   emergency = '';
   noCamera: boolean;
 
+  onCode: string;
+
   constructor(
     private shared: SharedDataService, 
     private route: ActivatedRoute,
@@ -31,8 +33,14 @@ export class QrCodePopupComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.noCamera = false;
-    if (this.route.snapshot.paramMap.get('id')) {
-      this.shared.qrCode(this.route.snapshot.paramMap.get('id'));
+    this.code = this.route.snapshot.paramMap.get('id');
+    this.onCode = this.route.snapshot.paramMap.get('on');
+    if (this.code) {
+      if (this.onCode) {
+        this.shared.qrCodeOn(this.code, this.onCode);
+      } else {
+        this.shared.qrCode(this.code);
+      }
     } else {
       this.initCamera();
     }
@@ -93,7 +101,11 @@ export class QrCodePopupComponent implements OnInit, OnDestroy {
       },
       qrCodeMessage => {
         // do something when code is read. For example:
-        this.shared.qrCode(qrCodeMessage);
+        if (this.onCode) {
+          this.shared.qrCodeOn(qrCodeMessage, this.onCode);
+        } else {
+          this.shared.qrCode(qrCodeMessage);
+        }
         this.code = qrCodeMessage;
         this.stopCamera();
       },
@@ -136,7 +148,11 @@ export class QrCodePopupComponent implements OnInit, OnDestroy {
 
   emergencyCode(code: string) {
     this.audio.play('action');
-    this.router.navigate(['qrcode', code]);
+    if (this.onCode) {
+      this.router.navigate(['on', this.onCode, 'qrcode', code]);
+    } else {
+      this.router.navigate(['qrcode', code]);
+    }
   }
 
 }

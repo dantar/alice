@@ -29,6 +29,8 @@ const routes: Routes = [
   {path: 'panel/:id', component: PanelComponent},
   {path: 'qrcode', component: QrCodePopupComponent},
   {path: 'qrcode/:id', component: QrCodePopupComponent},
+  {path: 'on/:on/qrcode', component: QrCodePopupComponent},
+  {path: 'on/:on/qrcode/:id', component: QrCodePopupComponent},
   {path: 'camera', component: CameraComponent},
   {path: 'partita', component: PartitaComponent},
   {path: ':key/story', component: TellStoryComponent},
