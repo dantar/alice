@@ -100,11 +100,13 @@
         all'utilizzo dei cookie. Puoi cambiare l'impostazione corrente qui di seguito:
       </p>
   
-      <p class="button">
-        <span class="as-button" *ngIf="!cookies.stated || !cookies.accept" (click)="cookies.doAccept()">Dai il consenso all'utilizzo dei cookie</span>
-        <span class="as-button" *ngIf="!cookies.stated || cookies.accept" (click)="cookies.doDeny()">Nega il consenso all'utilizzo dei cookie</span>
+      <p class="button" *ngIf="!cookies.stated || cookies.accept" style="margin: 2px">
+        <span class="as-button" (click)="cookies.doDeny()">Nega il consenso all'utilizzo dei cookie</span>
       </p>
-  
+      <p class="button" *ngIf="!cookies.stated || !cookies.accept" style="margin: 2px">
+        <span class="as-button" (click)="cookies.doAccept()">Dai il consenso all'utilizzo dei cookie</span>
+      </p>
+
       <p class="fall-in-item">Al momento dell'accesso a qualunque pagina del Sito, è presente un
         <em>banner</em> che contiene un'informativa sintetica sui
         <em>cookie</em> utilizzati. Fornendo l'autorizzazione tramite il
